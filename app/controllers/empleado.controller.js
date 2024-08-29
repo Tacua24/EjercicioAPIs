@@ -9,17 +9,17 @@ exports.create = (req, res) => {
     });
   }
 
-  const empleado = {
+  const Empleado = {
     id_empleado: req.body.id_empleado,
-    PrimerNombre: req.body.PrimerNombre,
-    SegundoNombre: req.body.SegundoNombre,
-    PrimerApellido: req.body.PrimerApellido,
-    SegundoApellido: req.body.SegundoApellido,
-    Nit: req.body.
-    Salario: req.body.Salario,
-    Estatus: req.body.Estatus,
-    id_departamento: req.body.id_departamento,
-  };
+    primer_nombre: req.body.primer_nombre,
+    segundo_nombre: req.body.segundo_nombre,
+    primer_apellido: req.body.primer_apellido,
+    segundo_apellido: req.body.segundo_apellido,
+    nit: req.body.nit,
+    salario: req.body.salario,
+    estatus: req.body.estatus,
+    id_departamento: req.body.id_departamento
+};
 
   Empleado.create(empleado)
    .then(data => {
