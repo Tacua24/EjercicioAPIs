@@ -1,6 +1,6 @@
 const db = require("../config/db.config.js");
-const Empleado = db.Empleadompleados;
-
+const Empleado = db.Empleados;
+    
 // Crear y guardar un nuevo empleado
 exports.create = (req, res) => {
     if (!req.body.PrimerNombre) {
