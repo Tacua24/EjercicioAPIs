@@ -9,3 +9,13 @@ router.put('/departamentos/:id_departamento', departamento.update);
 router.delete('/departamentos/:id_departamento', departamento.delete);
 
 module.exports = router;
+
+//Empleados Router
+
+const empleado = require('../controllers/empleado.controller.js');
+
+router.post('/empleados', empleado.create);
+router.get('/empleados', empleado.findAll);
+router.get('/empleados/:id_empleado', empleado.findOne);
+router.put('/empleados/:id_empleado', empleado.update);
+router.delete('/empleados/:id_empleado', empleado.delete);
