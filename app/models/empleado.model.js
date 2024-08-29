@@ -26,11 +26,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.NUMERIC
         },
         id_departamento: {
-            type: Sequelize.NUMERIC,
-            references: {
-                model: 'departamento',
-                key: 'id_departamento'
-            }
+            type: Sequelize.NUMERIC
         }
     });
 
