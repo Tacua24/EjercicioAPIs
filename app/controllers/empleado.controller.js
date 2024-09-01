@@ -1,15 +1,17 @@
-const db = require("../config/db.config.js");
-const Empleado = db.Empleados;
-    
-// Crear y guardar un nuevo empleado
+const db = require('../config/db.config.js');
+const Empleado = db.Empleado;
+
+// Crear y guardar un nuevo Empleado
 exports.create = (req, res) => {
-    if (!req.body.PrimerNombre) {
+    // Validar request
+    if (!req.body.PrimerNombre || !req.body.PrimerApellido) {
         res.status(400).send({
-            message: "El contenido no puede estar vacío."
+            message: "El contenido no puede estar vacío!"
         });
         return;
     }
 
+    // Crear un Empleado
     const empleado = {
         id_empleado: req.body.id_empleado,
         PrimerNombre: req.body.PrimerNombre,
@@ -22,6 +24,7 @@ exports.create = (req, res) => {
         id_departamento: req.body.id_departamento
     };
 
+    // Guardar Empleado en la base de datos
     Empleado.create(empleado)
         .then(data => {
             res.send(data);
@@ -33,7 +36,7 @@ exports.create = (req, res) => {
         });
 };
 
-// Obtener todos los empleados
+// Obtener todos los Empleados
 exports.findAll = (req, res) => {
     Empleado.findAll()
         .then(data => {
@@ -41,14 +44,14 @@ exports.findAll = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Ocurrió un error al obtener los empleados."
+                message: err.message || "Ocurrió un error al recuperar los Empleados."
             });
         });
 };
 
-// Obtener un solo empleado por ID
+// Obtener un Empleado por id
 exports.findOne = (req, res) => {
-    const id = req.params.id_empleado;
+    const id = req.params.id;
 
     Empleado.findByPk(id)
         .then(data => {
@@ -62,14 +65,14 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error al obtener el Empleado con id=${id}.`
+                message: "Error al recuperar el Empleado con id=" + id
             });
         });
 };
 
-// Actualizar un empleado por ID
+// Actualizar un Empleado por id
 exports.update = (req, res) => {
-    const id = req.params.id_empleado;
+    const id = req.params.id;
 
     Empleado.update(req.body, {
         where: { id_empleado: id }
@@ -77,24 +80,24 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Empleado actualizado exitosamente."
+                    message: "El Empleado fue actualizado correctamente."
                 });
             } else {
                 res.send({
-                    message: `No se puede actualizar el Empleado con id=${id}.`
+                    message: `No se pudo actualizar el Empleado con id=${id}. Tal vez el Empleado no fue encontrado o el body está vacío!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error al actualizar el Empleado con id=${id}.`
+                message: "Error al actualizar el Empleado con id=" + id
             });
         });
 };
 
-// Eliminar un empleado por ID
+// Eliminar un Empleado por id
 exports.delete = (req, res) => {
-    const id = req.params.id_empleado;
+    const id = req.params.id;
 
     Empleado.destroy({
         where: { id_empleado: id }
@@ -102,17 +105,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Empleado eliminado exitosamente."
+                    message: "El Empleado fue eliminado correctamente!"
                 });
             } else {
                 res.send({
-                    message: `No se puede eliminar el Empleado con id=${id}.`
+                    message: `No se pudo eliminar el Empleado con id=${id}. Tal vez el Empleado no fue encontrado!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error al eliminar el Empleado con id=${id}.`
+                message: "No se pudo eliminar el Empleado con id=" + id
             });
         });
 };
